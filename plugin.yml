@@ -1,0 +1,22 @@
+name: ChestShopPro
+main: me.crafter.mc.chestshoppro.ChestShopPro
+author: connection_lost
+depend: [Vault]
+softdepend: [ProtocolLib]
+version: 1.0
+description: >
+             ChestShopPro is a lite, databaseless implementation of ChestShop.
+commands:
+   chestshoppro:
+      permission: chestshoppro.command
+      usage: |
+         /lock
+      aliases: [chestshop]
+   iteminfo:
+      permission: chestshoppro.iteminfo
+      usage: |
+         /iteminfo
+permissions:
+   chestshoppro.command:
+      description: Command permission for LockettePro
+      default: true
