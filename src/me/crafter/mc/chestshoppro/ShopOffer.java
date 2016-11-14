@@ -2,6 +2,7 @@ package me.crafter.mc.chestshoppro;
 
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -65,9 +66,22 @@ public class ShopOffer {
 				adminshop = true;
 			}
 			
-			// chest
+			// Not admin shop, find chest
 			if (!adminshop){
-				
+				for (BlockFace blockface : Utils.allowedfaces){
+					Block suspect = block.getRelative(blockface);
+					if (suspect != null){
+						switch (suspect.getType()){
+						case CHEST:
+						case TRAPPED_CHEST:
+							chest = suspect;
+							break;
+						default:
+							break;
+						}
+					}
+					if (chest != null) break;
+				}
 			}
 			
 			// Get here means ok
@@ -104,12 +118,15 @@ public class ShopOffer {
 	}
 	
 	public boolean buy(Player player){
-		// TODO
+		if (!valid) return false;
+		
 		return false;
 	}
 	
 	public boolean sell(Player player){
-		// TODO
+		if (!valid) return false;
+		
+		
 		return false;
 	}
 	

@@ -2,6 +2,7 @@ package me.crafter.mc.chestshoppro;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.block.BlockFace;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -15,6 +16,7 @@ public class Utils {
 
 	public static boolean ok = false;
 	public static Economy economy = null;
+	public static BlockFace allowedfaces[] = {BlockFace.DOWN, BlockFace.NORTH, BlockFace.SOUTH, BlockFace.WEST, BlockFace.EAST, BlockFace.UP};
 	
 	public Utils(){
 		setupEconomy();
@@ -116,7 +118,7 @@ public class Utils {
         if (economy != null) ok = true;
 	}
 	
-	public static String toTitleCase(String givenString) {
+	public static String toTitleCase(String givenString){
 		givenString = givenString.toLowerCase().replace("_", " ");
 		try {
 		    String[] arr = givenString.split(" ");
