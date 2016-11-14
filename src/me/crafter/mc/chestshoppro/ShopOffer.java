@@ -9,6 +9,8 @@ import org.bukkit.inventory.ItemStack;
 
 public class ShopOffer {
 
+	// TODO: ShopOffer could be cached into the shop chest
+	
 	public boolean valid = false;
 	public boolean canbuy = false;
 	public boolean cansell = false;
@@ -121,7 +123,7 @@ public class ShopOffer {
 	
 	public boolean buy(Player player){
 		if (!valid) return false;
-		
+		// Check player money
 		return false;
 	}
 	
