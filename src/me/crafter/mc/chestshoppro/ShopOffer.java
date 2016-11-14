@@ -82,6 +82,8 @@ public class ShopOffer {
 					}
 					if (chest != null) break;
 				}
+				// No chest found
+				if (chest == null) return;
 			}
 			
 			// Get here means ok
