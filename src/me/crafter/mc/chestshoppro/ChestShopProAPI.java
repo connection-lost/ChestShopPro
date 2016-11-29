@@ -88,11 +88,8 @@ public class ChestShopProAPI {
 	
 	public static boolean isShopSign(Block block){
 		if (!isSign(block)) return false;
-		Sign sign = (Sign)block.getState();
-		// TODO
-		
-		
-		return false;
+		ShopOffer shopoffer = ShopOffer.fromBlock(block);
+		return shopoffer != null;
 	}
 	
 	public static boolean isBuySign(Block block){

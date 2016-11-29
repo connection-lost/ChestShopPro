@@ -23,7 +23,7 @@ public class DebugListener implements Listener{
 				Block b = event.getClickedBlock();
 				if (ChestShopProAPI.isSign(b)){
 					event.getPlayer().getInventory().setItemInMainHand(Utils.shopStringToItem(((Sign)b.getState()).getLine(3)));
-					ShopOffer offer = new ShopOffer(event.getClickedBlock());
+					ShopOffer offer = ShopOffer.fromBlock(event.getClickedBlock());
 					event.getPlayer().sendMessage(offer.toString());
 				}
 			}

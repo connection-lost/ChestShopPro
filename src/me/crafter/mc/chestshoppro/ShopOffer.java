@@ -9,9 +9,7 @@ import org.bukkit.inventory.ItemStack;
 
 public class ShopOffer {
 
-	// TODO: ShopOffer could be cached into the shop chest
-	
-	public boolean valid = false;
+	private boolean valid = false;
 	public boolean canbuy = false;
 	public boolean cansell = false;
 	public int amount = 1;
@@ -24,7 +22,7 @@ public class ShopOffer {
 	public boolean adminshop = false;
 	Block chest = null;
 	
-	public ShopOffer(Block block){
+	private ShopOffer(Block block){
 		if (ChestShopProAPI.isSign(block)){
 			Sign sign = (Sign)block.getState();
 			
@@ -146,6 +144,16 @@ public class ShopOffer {
 		ret += "\nmaterial:" + material;
 		ret += "\nitemstack:" + itemstack;
 		return ret;
+	}
+	
+	public static ShopOffer fromBlock(Block block){
+		ShopOffer shopoffer = new ShopOffer(block);
+		if (shopoffer.isValid()) return shopoffer;
+		else return null;
+	}
+	
+	public boolean isValid(){
+		return valid;
 	}
 	
 }
