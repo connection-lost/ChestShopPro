@@ -1,27 +1,35 @@
 package me.crafter.mc.chestshoppro;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
+import org.bukkit.block.Chest;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 public class ShopOffer {
 
 	private boolean valid = false;
-	public boolean canbuy = false;
-	public boolean cansell = false;
+	private boolean canbuy = false;
+	private boolean cansell = false;
 	public int amount = 1;
 	public double buyprice = 0;
 	public double sellprice = 0;
 	public Material material = null;
 	public ItemStack itemstack = null;
-	public String playername = null;
+	private String playername = null;
+	private String playeruuid = null;
+	private OfflinePlayer player = null;
 	
 	public boolean adminshop = false;
 	Block chest = null;
+	Inventory chestinventory = null;
 	
+	@SuppressWarnings("deprecation")
 	private ShopOffer(Block block){
 		if (ChestShopProAPI.isSign(block)){
 			Sign sign = (Sign)block.getState();
@@ -65,6 +73,8 @@ public class ShopOffer {
 			if (line0.equals("admin-shop")){
 				adminshop = true;
 			}
+			player = Bukkit.getOfflinePlayer(playername);
+			if (player == null) return;
 			
 			// Not admin shop, find chest
 			if (!adminshop){
@@ -75,6 +85,7 @@ public class ShopOffer {
 						case CHEST:
 						case TRAPPED_CHEST:
 							chest = suspect;
+							chestinventory = ((Chest)chest.getState()).getInventory();
 							break;
 						default:
 							break;
@@ -154,6 +165,26 @@ public class ShopOffer {
 	
 	public boolean isValid(){
 		return valid;
+	}
+	
+	public boolean canBuy(){
+		return canbuy;
+	}
+	
+	public boolean canSell(){
+		return cansell;
+	}
+	
+	public OfflinePlayer getPlayer(){
+		return player;
+	}
+	
+	public String getPlayerName(){
+		return playername;
+	}
+	
+	public String getPlayerUuid(){
+		return playeruuid;
 	}
 	
 }

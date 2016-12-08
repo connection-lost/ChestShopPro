@@ -73,12 +73,10 @@ public class ChestShopProAPI {
 	}
 	
 	
-	
-	
-	
 	public static boolean isSign(Block block){
 		switch (block.getType()){
 		case SIGN:
+		case SIGN_POST:
 		case WALL_SIGN:
 			return true;
 		default:

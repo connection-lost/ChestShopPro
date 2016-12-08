@@ -2,6 +2,7 @@ package me.crafter.mc.chestshoppro;
 
 import java.io.IOException;
 
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -14,12 +15,16 @@ public class ChestShopPro extends JavaPlugin {
 	public void onEnable(){
 		// Debug
 		getServer().getPluginManager().registerEvents(new DebugListener(), this);
+		Bukkit.getScheduler().runTaskTimer(this, new CashUtil(), 2, 2);
 		
 		// Config
 		
 		
 		// Utils (including economy)
 		new Utils();
+		
+		// Listener
+		getServer().getPluginManager().registerEvents(new PlayerShoppingListener(), this);
 		
 		// Metrics
 		try {

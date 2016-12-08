@@ -2,14 +2,18 @@ package me.crafter.mc.chestshoppro;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.block.BlockFace;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
 import org.bukkit.plugin.RegisteredServiceProvider;
 
 import net.milkbowl.vault.economy.Economy;
+import net.milkbowl.vault.economy.EconomyResponse;
+
 import org.apache.commons.codec.binary.Base64;
 
 public class Utils {
@@ -132,7 +136,54 @@ public class Utils {
 		} catch (Exception ex){
 			return "?";
 		}
-	}  
+	}
+	
+	public static boolean playerHasMoney(OfflinePlayer player, double request){
+		if (player == null) return false;
+		return economy.getBalance(player) >= request;
+	}
+	
+	public static boolean playerRemoveMoney(OfflinePlayer player, double request){
+		if (player == null) return false;
+		return economy.withdrawPlayer(player, request).type == EconomyResponse.ResponseType.SUCCESS;
+	}
+	
+	public static boolean playerAddMoney(OfflinePlayer player, double request){
+		if (player == null) return false;
+		return economy.depositPlayer(player, request).type == EconomyResponse.ResponseType.SUCCESS;
+	}
+	
+	public static boolean inventoryHasItem(Inventory inventory, ItemStack itemstack, int amount){
+		int currentamount = 0;
+		for (ItemStack content : inventory){
+			if (content != null && content.isSimilar(itemstack)){
+				currentamount += amount;
+			}
+		}
+		return currentamount >= amount;
+	}
+	
+	public static boolean inventoryRemoveItem(Inventory inventory, ItemStack itemstack, int amount){
+		int remainingamount = amount;
+		for (ItemStack content : inventory){
+			if (content != null && content.isSimilar(itemstack)){
+				if (content.getAmount() > remainingamount){
+					content.setAmount(content.getAmount() - remainingamount);
+					remainingamount = 0;
+					break;
+				} else if (content.getAmount() == remainingamount){
+					inventory.remove(content);
+					remainingamount = 0;
+					break;
+				} else {
+					remainingamount -= content.getAmount();
+					inventory.remove(content);
+					break;
+				}
+			}
+		}
+		return remainingamount == 0;
+	}
 	
 }
 
