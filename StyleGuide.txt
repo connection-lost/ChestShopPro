@@ -1,2 +1,7 @@
-ChestShopPro uses the following style guide:    
-http://www.oracle.com/technetwork/java/codeconventions-150003.pdf
+ChestShopPro is a plugin based on Bukkit/Spigot, this project will follow Bukkit's style guide. Due to the fact that Bukkit's style guide is no longer available, here is a basic explnation about how the style guide should be:
+
+1. Style should follow Google Java Style Guide: https://google.github.io/styleguide/javaguide.html
+2. Exception: All variables are lowercase instead of lowerCamelCase. For instance:
+    int timeplayed = 10;
+    String hismessage = "xxxx";
+3. Exception: Use tabs for indentation. Tab length should count as 4 spaces.
